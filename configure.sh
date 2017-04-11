@@ -68,7 +68,7 @@ test "$DONT_ZLIB" || AC_LIBRARY inflate -lz
 
 test "$TRY_SHARED" && AC_COMPILER_PIC && AC_CC_SHLIBS
 
-AC_OUTPUT src/Makefile
+AC_OUTPUT Makefile src/Makefile
 
 LOG
 LOG "$TARGET is configured with"

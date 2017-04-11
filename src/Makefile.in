@@ -67,11 +67,8 @@ mkversion: mkversion.c
 clean-library: VERSION
 	rm -f `../librarian.sh files $(LIBRARY) VERSION`
 
-clean: clean-library
+distclean spotless clean: clean-library
 	rm -f $(OBJS) mkversion VERSION
-
-distclean spotless: clean
-	@DISTCLEAN@ @GENERATED_FILES@ @CONFIGURE_FILES@
 
 install: $(LIBRARY)
 	@INSTALL@ -c gd.h gd_io.h gdfx.h $(INCDIR)

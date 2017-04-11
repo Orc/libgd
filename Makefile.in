@@ -1,0 +1,9 @@
+lib:
+	make -C src
+
+install clean:
+	make -C src install
+
+distclean spotless:
+	make -C src $@
+	@DISTCLEAN@ @GENERATED_FILES@ @CONFIGURE_FILES@
