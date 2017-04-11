@@ -1,0 +1,148 @@
+LIBRARY=libgd
+CC=@CC@
+CFLAGS=@CFLAGS@
+LDFLAGS=@LDFLAGS@
+LIBDIR=@libdir@
+INCDIR=@prefix@/include
+
+OBJS =  gd.o \
+	gd_bmp.o \
+	gd_color.o \
+	gd_color_map.o \
+	gd_color_match.o \
+	gd_crop.o \
+	gd_filename.o \
+	gd_filter.o \
+	gd_gd.o \
+	gd_gd2.o \
+	gd_gif_in.o \
+	gd_gif_out.o \
+	gd_interpolation.o \
+	gd_io.o \
+	gd_io_dp.o \
+	gd_io_file.o \
+	gd_io_ss.o \
+	gd_jpeg.o \
+	gd_matrix.o \
+	gd_nnquant.o \
+	gd_png.o \
+	gd_rotate.o \
+	gd_security.o \
+	gd_ss.o \
+	gd_tga.o \
+	gd_tiff.o \
+	gd_topal.o \
+	gd_transform.o \
+	gd_version.o \
+	gd_wbmp.o \
+	gd_webp.o \
+	gd_xbm.o \
+	gdcache.o \
+	gdfontg.o \
+	gdfontl.o \
+	gdfontmb.o \
+	gdfonts.o \
+	gdfontt.o \
+	gdft.o \
+	gdfx.o \
+	gdhelpers.o \
+	gdkanji.o \
+	gdtables.o \
+	gdxpm.o \
+	wbmp.o
+
+
+$(LIBRARY): $(OBJS) VERSION
+	./librarian.sh make $(LIBRARY) VERSION $(OBJS) 
+
+VERSION: mkversion
+	./mkversion > VERSION
+
+mkversion: mkversion.c
+
+# since I hand-generate the version from gd.h,
+# and since the librarian wants a version file,
+# that means I may need to regenerate it so I
+# can delete the library.
+clean-library: VERSION
+	rm -f `./librarian.sh files $(LIBRARY) VERSION`
+
+clean: clean-library
+	rm -f $(OBJS) mkversion VERSION
+
+distclean spotless: clean
+	@DISTCLEAN@ @GENERATED_FILES@ @CONFIGURE_FILES@
+
+install: $(LIBRARY)
+	@INSTALL@ -c gd.h gd_io.h gdfx.h $(INCDIR)
+	./librarian.sh install $(LIBRARY) VERSION $(LIBDIR)
+
+
+
+annotate.o: annotate.c gd.h gd_io.h gdfx.h config.h
+circletexttest.o: circletexttest.c gd.h gd_io.h gdfx.h config.h
+fontconfigtest.o: fontconfigtest.c gd.h gd_io.h gdfx.h config.h
+fontsizetest.o: fontsizetest.c gd.h gd_io.h gdfx.h config.h
+fontwheeltest.o: fontwheeltest.c gd.h gd_io.h gdfx.h config.h
+gd2copypal.o: gd2copypal.c gd.h gd_io.h gdfx.h config.h
+gd2time.o: gd2time.c gd.h gd_io.h gdfx.h config.h
+gd2togif.o: gd2togif.c gd.h gd_io.h gdfx.h config.h
+gd2topng.o: gd2topng.c gd.h gd_io.h gdfx.h config.h
+gd_bmp.o: gd_bmp.c gd.h gd_io.h gdfx.h gdhelpers.h bmp.h config.h
+gd_color.o: gd_color.c gd.h gd_io.h gdfx.h gd_color.h config.h
+gd_color_map.o: gd_color_map.c gd.h gd_io.h gdfx.h gd_color_map.h config.h
+gd_color_map_test.o: gd_color_map_test.c gd.h gd_io.h gdfx.h gd_color_map.h \
+                     config.h
+gd_color_match.o: gd_color_match.c gd.h gd_io.h gdfx.h gdhelpers.h config.h
+gd_crop.o: gd_crop.c gd.h gd_io.h gdfx.h gd_color.h config.h
+gd_filename.o: gd_filename.c gd.h gd_io.h gdfx.h config.h
+gd_gd.o: gd_gd.c gd.h gd_io.h gdfx.h config.h
+gd_gd2.o: gd_gd2.c gd.h gd_io.h gdfx.h gd_errors.h gdhelpers.h config.h
+gd_gif_in.o: gd_gif_in.c gd.h gd_io.h gdfx.h config.h
+gd_gif_out.o: gd_gif_out.c gd.h gd_io.h gdfx.h gdhelpers.h config.h
+gd_io.o: gd_io.c gd.h gd_io.h gdfx.h config.h
+gd_io_dp.o: gd_io_dp.c gd.h gd_io.h gdfx.h gdhelpers.h config.h
+gd_io_file.o: gd_io_file.c gd.h gd_io.h gdfx.h gdhelpers.h config.h
+gd_io_ss.o: gd_io_ss.c gd.h gd_io.h gdfx.h gdhelpers.h config.h
+gd_jpeg.o: gd_jpeg.c gd.h gd_io.h gdfx.h gd_errors.h config.h
+gd_matrix.o: gd_matrix.c gd.h gd_io.h gdfx.h config.h
+gd_nnquant.o: gd_nnquant.c gd.h gd_io.h gdfx.h gdhelpers.h gd_errors.h \
+              gd_nnquant.h config.h
+gd_png.o: gd_png.c gd.h gd_io.h gdfx.h gd_errors.h config.h
+gd_security.o: gd_security.c gd.h gd_io.h gdfx.h gd_errors.h config.h
+gd_ss.o: gd_ss.c gd.h gd_io.h gdfx.h gd_errors.h config.h
+gd_tiff.o: gd_tiff.c gd.h gd_io.h gdfx.h gd_errors.h gdfonts.h gdhelpers.h \
+           config.h
+gd_topal.o: gd_topal.c gd.h gd_io.h gdfx.h gdhelpers.h config.h
+gd_transform.o: gd_transform.c gd.h gd_io.h gdfx.h config.h
+gd_version.o: gd_version.c gd.h gd_io.h gdfx.h config.h
+gd_wbmp.o: gd_wbmp.c gd.h gd_io.h gdfx.h gd_errors.h gdfonts.h wbmp.h config.h
+gd_webp.o: gd_webp.c config.h
+gd_xbm.o: gd_xbm.c gd.h gd_io.h gdfx.h gd_errors.h gdhelpers.h config.h
+gdcache.o: gdcache.c gd.h gd_io.h gdfx.h gdhelpers.h config.h
+gdcmpgif.o: gdcmpgif.c gd.h gd_io.h gdfx.h config.h
+gddemo.o: gddemo.c gd.h gd_io.h gdfx.h gdfontt.h gdfonts.h gdfontmb.h gdfontl.h gdfontg.h config.h
+gdfontg.o: gdfontg.c gdfontg.h gd.h gd_io.h gdfx.h config.h
+gdfontl.o: gdfontl.c gdfontl.h gd.h gd_io.h gdfx.h config.h
+gdfontmb.o: gdfontmb.c gdfontmb.h gd.h gd_io.h gdfx.h config.h
+gdfonts.o: gdfonts.c gdfonts.h gd.h gd_io.h gdfx.h config.h
+gdfontt.o: gdfontt.c gdfontt.h gd.h gd_io.h gdfx.h config.h
+gdfx.o: gdfx.c gd.h gd_io.h gdfx.h gd_errors.h config.h
+gdhelpers.o: gdhelpers.c gd.h gd_io.h gdfx.h gdhelpers.h config.h
+gdkanji.o: gdkanji.c gd.h gd_io.h gdfx.h gdhelpers.h gd_errors.h config.h
+gdparttopng.o: gdparttopng.c gd.h gd_io.h gdfx.h config.h
+gdtables.o: gdtables.c config.h
+gdtest.o: gdtest.c gd.h gd_io.h gdfx.h config.h
+gdtestft.o: gdtestft.c gd.h gd_io.h gdfx.h config.h
+gdtopng.o: gdtopng.c gd.h gd_io.h gdfx.h config.h
+gdxpm.o: gdxpm.c gd.h gd_io.h gdfx.h gdhelpers.h gd_color_map.h \
+         gd_errors.h config.h
+gifanimtest.o: gifanimtest.c gd.h gd_io.h gdfx.h config.h
+giftogd2.o: giftogd2.c gd.h gd_io.h gdfx.h config.h
+pngtogd.o: pngtogd.c gd.h gd_io.h gdfx.h config.h
+pngtogd2.o: pngtogd2.c gd.h gd_io.h gdfx.h config.h
+snprintf.o: snprintf.c config.h
+testac.o: testac.c gd.h gd_io.h gdfx.h config.h
+testtr.o: testtr.c gd.h gd_io.h gdfx.h config.h
+wbmp.o: wbmp.c wbmp.h gd.h gd_io.h gdfx.h gdhelpers.h config.h
+webpng.o: webpng.c gd.h gd_io.h gdfx.h config.h

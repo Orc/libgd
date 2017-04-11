@@ -33,7 +33,6 @@ Release_GD
 *.l[ao]
 .deps
 .libs
-Makefile.in
 /aclocal.m4
 /autom4te.cache
 /config.h
@@ -101,3 +100,12 @@ build_msvc12_x86
 build_msvc12_x64
 build_mingw_x86
 build_mingw_x64
+
+# configure.sh scaffolding
+config.cmd
+config.mak
+config.md
+config.sub
+librarian.sh
+src/VERSION
+src/mkversion
