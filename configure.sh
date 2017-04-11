@@ -49,11 +49,11 @@ AC_INIT libgd
 
 AC_PROG_CC
 
-AC_CHECK_HEADERS limits_h
+AC_CHECK_HEADERS limits.h
 AC_CHECK_HEADERS inttypes.h
 AC_CHECK_HEADERS pthread.h
 AC_CHECK_HEADERS errno.h
-AC_CHECK_HEADERS stddef_h
+AC_CHECK_HEADERS stddef.h
 AC_CHECK_HEADERS string.h
 AC_CHECK_HEADERS unistd.h
 AC_CHECK_HEADERS limits.h
@@ -61,7 +61,7 @@ AC_CHECK_HEADERS limits.h
 AC_CFLAGS="$AC_CFLAGS -DHAVE_CONFIG_H=1"
 AC_DEFINE 'HAVE_CONFIG_H' '1'
 
-test "$DONT_TIFF" || AC_LIBRARY tiff_open -ltiff
+test "$DONT_TIFF" || AC_LIBRARY TIFFOpen -ltiff
 test "$DONT_PNG" || AC_LIBRARY png_error -lpng -lpng15
 test "$DONT_JPEG" || AC_LIBRARY jpeg_set_defaults -ljpeg
 test "$DONT_ZLIB" || AC_LIBRARY inflate -lz
@@ -69,3 +69,14 @@ test "$DONT_ZLIB" || AC_LIBRARY inflate -lz
 test "$TRY_SHARED" && AC_COMPILER_PIC && AC_CC_SHLIBS
 
 AC_OUTPUT src/Makefile
+
+LOG
+LOG "$TARGET is configured with"
+
+for x in png tiff jpeg;do
+    feature=`echo have_lib$x | $AC_UPPERCASE`
+
+    grep $feature config.h && LOG "	$x image support"
+done
+
+grep HAVE_LIBZ config.h && LOG "	compression (libz)"
