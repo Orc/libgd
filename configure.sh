@@ -5,7 +5,10 @@
 # is a script that's processed with eval, so you need to be very careful to
 # make certain that what you quote is what you want to quote.
 
-ac_help='--shared		Build shared libraries'
+ac_help='--shared		Build shared libraries
+--disable-tiff		No tiff support
+--disable-png		No png support
+--disable-jpeg		No jpeg support'
 
 LOCAL_AC_OPTIONS='
 set=`locals $*`;
@@ -19,6 +22,15 @@ fi'
 locals() {
     K=`echo $1 | $AC_UPPERCASE`
     case "$K" in
+    --DISABLE-TIFF)
+		echo DONT_TIFF=T
+		;;
+    --DISABLE-PNG)
+		echo DONT_PNG=T
+		;;
+    --DISABLE-JPEG)
+		echo DONT_JPEG=T
+		;;
     --SHARED)
                 echo TRY_SHARED=T
                 ;;
@@ -49,8 +61,9 @@ AC_CHECK_HEADERS limits.h
 AC_CFLAGS="$AC_CFLAGS -DHAVE_CONFIG_H=1"
 AC_DEFINE 'HAVE_CONFIG_H' '1'
 
-AC_LIBRARY png_error -lpng -lpng15
-AC_LIBRARY jpeg_set_defaults -ljpeg
+test "$DONT_TIFF" || AC_LIBRARY tiff_open -ltiff
+test "$DONT_PNG" || AC_LIBRARY png_error -lpng -lpng15
+test "$DONT_JPEG" || AC_LIBRARY jpeg_set_defaults -ljpeg
 
 test "$TRY_SHARED" && AC_COMPILER_PIC && AC_CC_SHLIBS
 
