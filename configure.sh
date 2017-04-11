@@ -64,6 +64,7 @@ AC_DEFINE 'HAVE_CONFIG_H' '1'
 test "$DONT_TIFF" || AC_LIBRARY tiff_open -ltiff
 test "$DONT_PNG" || AC_LIBRARY png_error -lpng -lpng15
 test "$DONT_JPEG" || AC_LIBRARY jpeg_set_defaults -ljpeg
+test "$DONT_ZLIB" || AC_LIBRARY inflate -lz
 
 test "$TRY_SHARED" && AC_COMPILER_PIC && AC_CC_SHLIBS
 

@@ -12,7 +12,6 @@ syntax: glob
 [Bb]in
 win32
 
-Makefile
 CMakeCache.txt
 CMakeFiles
 cmake_install.cmake
