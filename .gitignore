@@ -109,3 +109,4 @@ config.sub
 librarian.sh
 src/VERSION
 src/mkversion
+src/libgd
