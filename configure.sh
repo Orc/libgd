@@ -62,9 +62,16 @@ AC_CFLAGS="$AC_CFLAGS -DHAVE_CONFIG_H=1"
 AC_DEFINE 'HAVE_CONFIG_H' '1'
 
 test "$DONT_TIFF" || AC_LIBRARY TIFFOpen -ltiff
-test "$DONT_PNG" || AC_LIBRARY png_error -lpng -lpng15
+test "$DONT_PNG"  || AC_LIBRARY png_error -lpng -lpng15
 test "$DONT_JPEG" || AC_LIBRARY jpeg_set_defaults -ljpeg
+test "$DONT_XPM"  || AC_LIBRARY XpmReadFileToXpmImage -lxpm
+test "$DONT_WEBP" || AC_LIBRARY WebPGetInfo -lwebp
 test "$DONT_ZLIB" || AC_LIBRARY inflate -lz
+test "$DONT_LIQ"  || AC_LIBRARY liq_attr_create -limagequant
+test "$DONT_FC"   || AC_LIBRARY FcInit -lfontconfig
+test "$DONT_FT"   || AC_LIBRARY Ft_Library_Version -lfreetype
+test "$DONT_RAQM" || AC_LIBRARY raqm_create -lraqm
+HAVE_LIBWEBP
 
 test "$TRY_SHARED" && AC_COMPILER_PIC && AC_CC_SHLIBS
 
@@ -73,10 +80,16 @@ AC_OUTPUT Makefile src/Makefile
 LOG
 LOG "$TARGET is configured with"
 
-for x in png tiff jpeg;do
+for x in png tiff jpeg xpm webp;do
     feature=`echo have_lib$x | $AC_UPPERCASE`
 
     grep $feature config.h && LOG "	$x image support"
+done
+
+for x in fontconfig freetype imagequant raqm ttf ; do
+    feature=`echo have_lib$x | $AC_UPPERCASE`
+
+    grep $feature config.h && LOG "	$x support"
 done
 
 grep HAVE_LIBZ config.h && LOG "	compression (libz)"
