@@ -71,7 +71,6 @@ test "$DONT_LIQ"  || AC_LIBRARY liq_attr_create -limagequant
 test "$DONT_FC"   || AC_LIBRARY FcInit -lfontconfig
 test "$DONT_FT"   || AC_LIBRARY Ft_Library_Version -lfreetype
 test "$DONT_RAQM" || AC_LIBRARY raqm_create -lraqm
-HAVE_LIBWEBP
 
 test "$TRY_SHARED" && AC_COMPILER_PIC && AC_CC_SHLIBS
 
