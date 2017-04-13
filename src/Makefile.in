@@ -53,7 +53,7 @@ OBJS =  gd.o \
 
 
 $(LIBRARY): $(OBJS) VERSION
-	../librarian.sh make $(LIBRARY) VERSION $(OBJS) @LIBS@
+	../librarian.sh make $(LIBRARY) VERSION $(OBJS) 
 
 VERSION: mkversion
 	./mkversion > VERSION
