@@ -1,9 +1,9 @@
 lib:
-	$(MAKE) -C src
+	cd src; $(MAKE)
 
 install clean:
-	$(MAKE) -C src install
+	cd src; $(MAKE) $@
 
 distclean spotless:
-	$(MAKE) -C src $@
+	cd src; $(MAKE) $@
 	@DISTCLEAN@ @GENERATED_FILES@ @CONFIGURE_FILES@
