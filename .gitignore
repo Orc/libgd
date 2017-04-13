@@ -113,3 +113,4 @@ src/Makefile
 src/libgd.so
 src/libgd.so.2
 src/libgd.so.2.3.0
+Makefile
