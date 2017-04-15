@@ -1,9 +1,9 @@
 lib:
-	make -C src
+	cd src; make
 
 install clean:
-	make -C src install
+	cd src make $@
 
 distclean spotless:
-	make -C src $@
+	cd src; make $@
 	@DISTCLEAN@ @GENERATED_FILES@ @CONFIGURE_FILES@
