@@ -2,7 +2,7 @@ lib:
 	cd src; make
 
 install clean:
-	cd src make $@
+	cd src; make $@
 
 distclean spotless:
 	cd src; make $@
