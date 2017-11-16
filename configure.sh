@@ -75,7 +75,7 @@ test "$DONT_WEBP" || AC_LIBRARY WebPGetInfo -lwebp
 test "$DONT_ZLIB" || AC_LIBRARY inflate -lz
 test "$DONT_LIQ"  || AC_LIBRARY liq_attr_create -limagequant
 test "$DONT_FC"   || AC_LIBRARY FcInit -lfontconfig
-test "$DONT_FT"   || AC_LIBRARY Ft_Library_Version -lfreetype
+test "$DONT_FT"   || AC_LIBRARY FT_Library_Version -lfreetype
 test "$DONT_RAQM" || AC_LIBRARY raqm_create -lraqm
 
 test "$TRY_SHARED" && AC_COMPILER_PIC && AC_CC_SHLIBS
