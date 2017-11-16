@@ -8,7 +8,13 @@
 ac_help='--shared		Build shared libraries
 --disable-tiff		No tiff support
 --disable-png		No png support
---disable-jpeg		No jpeg support'
+--disable-jpeg		No jpeg support
+--disable-xpm		No xpm support
+--disable-webp		No webp support
+--disable-zlib		No compression
+--disable-fc		No fontconfig support
+--disable-ft		No freetype support
+--disable-raqm		No raqm (text layout) support'
 
 LOCAL_AC_OPTIONS='
 set=`locals $*`;
